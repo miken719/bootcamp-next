@@ -6,12 +6,7 @@ import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const getLink = () => {
-    if (typeof window !== "undefined") {
-      return window.location.href;
-    }
-  };
-  const link = getLink();
+
   useEffect(() => {
     googleEvent({
       event_category: "Home (Banner)",

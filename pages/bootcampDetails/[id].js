@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
+import { googleEvent } from "@/component/utils/googleAnalytics";
 
 const BootcampDetails = () => {
   const router = useRouter();
@@ -21,6 +22,10 @@ const BootcampDetails = () => {
   };
   useEffect(() => {
     if (id) fetchBootcampDetails();
+    googleEvent({
+      event_category: `Bootcamp ID:- ${id}`,
+      event_label: id,
+    });
   }, [id]);
 
   return (

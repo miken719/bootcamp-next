@@ -25,8 +25,18 @@ const Bootcamps = () => {
     bootcampIsLoadingByRadius,
   } = useBootcampHook();
 
+  const getLink = () => {
+    if (typeof window !== "undefined") {
+      return window.location.href;
+    }
+  };
+  const link = getLink();
   useEffect(() => {
     browseBootcampsAllBootcamps();
+    googleEvent({
+      event_category: "Browse Bootcamp",
+      event_label: link,
+    });
   }, [page, pagesize]);
 
   const browseBootcampsByRadius = async () => {
@@ -38,19 +48,14 @@ const Bootcamps = () => {
     setBrowseBootcamps(api?.data?.data);
     setTotal(api?.data?.totalrecords);
   };
-  const getLink = () => {
-    if (typeof window !== "undefined") {
-      return window.location.href;
-    }
-  };
-  const link = getLink();
+
   const browseBootcampsAllBootcamps = async () => {
     const params = `?limit=${pagesize}&page=${page}`;
     const api = await fetchBootcamp(params);
 
     googleEvent({
       event_category: "Browse Bootcamp By Radius",
-      event_label: link,
+      event_label: params,
     });
 
     setBrowseBootcamps(api?.data?.result);
