@@ -11,7 +11,11 @@ export const useBootcampHook = () => {
 
   const [
     fetchBootcampByRadius,
-    { data: bootcampDataByRadius, isLoading: bootcampIsLoadingByRadius },
+    {
+      data: bootcampDataByRadius,
+      isLoading: bootcampIsLoadingByRadius,
+      isError: bootcampDataByRadiusError,
+    },
   ] = useBootcampByRadiusMutation();
 
   const [
@@ -36,5 +40,6 @@ export const useBootcampHook = () => {
     fetchCoursesById,
     fetchCoursesByIdData,
     fetchCoursesByIdIsLoading,
+    bootcampDataByRadiusError,
   };
 };

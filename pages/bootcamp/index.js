@@ -13,7 +13,7 @@ const Bootcamps = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [browseBootcamps, setBrowseBootcamps] = useState([]);
-
+  const [sort, setSort] = useState(1);
   const [radius, setRadius] = useState({
     zipcode: "",
     distance: "",
@@ -23,6 +23,7 @@ const Bootcamps = () => {
     bootcampIsLoading,
     fetchBootcampByRadius,
     bootcampIsLoadingByRadius,
+    bootcampDataByRadiusError,
   } = useBootcampHook();
 
   const getLink = () => {
@@ -30,6 +31,7 @@ const Bootcamps = () => {
       return window.location.href;
     }
   };
+
   const link = getLink();
   useEffect(() => {
     browseBootcampsAllBootcamps();
@@ -37,12 +39,12 @@ const Bootcamps = () => {
       event_category: "Browse Bootcamp",
       event_label: link,
     });
-  }, [page, pagesize]);
+  }, [page, pagesize, sort]);
 
   const browseBootcampsByRadius = async () => {
     let params = {
-      zipcode: radius.zipcode ? radius.zipcode : "0",
-      distance: radius.distance ? radius.distance : "0",
+      zipcode: radius.zipcode ? radius.zipcode : "",
+      distance: radius.distance ? radius.distance : "",
     };
     const api = await fetchBootcampByRadius(params);
     setBrowseBootcamps(api?.data?.data);
@@ -50,7 +52,7 @@ const Bootcamps = () => {
   };
 
   const browseBootcampsAllBootcamps = async () => {
-    const params = `?limit=${pagesize}&page=${page}`;
+    const params = `?limit=${pagesize}&page=${page}&sort=${sort}`;
     const api = await fetchBootcamp(params);
 
     googleEvent({
@@ -70,6 +72,7 @@ const Bootcamps = () => {
     setPage(page);
     setPagesize(pageSize);
   };
+  console.log(bootcampDataByRadiusError, "bootcampDataByRadiusError");
   return (
     <div>
       {/* Navbar */}
@@ -109,14 +112,58 @@ const Bootcamps = () => {
                       </div>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={browseBootcampsByRadius}
-                    className="btn btn-primary btn-block"
-                  >
-                    Find Bootcamps
-                  </button>
+                  <div className="form-group">
+                    <button
+                      type="button"
+                      onClick={browseBootcampsByRadius}
+                      className="btn btn-primary btn-block"
+                    >
+                      Find Bootcamps
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRadius({ ...radius, distance: "", zipcode: "" });
+                        browseBootcampsAllBootcamps();
+                      }}
+                      className="btn btn-primary btn-block"
+                    >
+                      Clear
+                    </button>
+                  </div>
                 </form>
+              </div>
+              <div className="card card-body mb-4">
+                <h4 className="mb-3">Sort</h4>
+
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <button
+                        type="primary"
+                        className="btn-primary form-control"
+                        value={radius.distance}
+                        onClick={() => setSort("-createdAt")}
+                      >
+                        {" "}
+                        Newest{" "}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <button
+                        type="primary"
+                        className="btn-primary form-control"
+                        value={radius.distance}
+                        onClick={() => setSort("createdAt")}
+                      >
+                        {" "}
+                        Oldest{" "}
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
               <h4>Filter</h4>
               <form>
@@ -158,11 +205,12 @@ const Bootcamps = () => {
                 />
               </form>
             </div>
+
             {/* Main col */}
             <div className="col-md-8">
               {/* Bootcamps */}
-              {browseBootcamps &&
-              (bootcampIsLoading || bootcampIsLoadingByRadius) ? (
+              {(browseBootcamps && bootcampIsLoading) ||
+              bootcampIsLoadingByRadius ? (
                 <h3 className="text-center mt-5">
                   {" "}
                   <img
@@ -172,7 +220,14 @@ const Bootcamps = () => {
                   />
                 </h3>
               ) : browseBootcamps?.length === 0 ? (
-                <h3 className="text-center ">No Records Found</h3>
+                <h3 className="text-center mt-5">
+                  {" "}
+                  <img
+                    src={"/img/no-records.png"}
+                    style={{ width: "550px" }}
+                    alt="No Records Found..."
+                  />
+                </h3>
               ) : (
                 browseBootcamps?.map((bootcamp) => {
                   return (
