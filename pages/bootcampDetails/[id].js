@@ -4,25 +4,27 @@ import { FILE_URL } from "@/config";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { fetchBootcampById, fetchCoursesByBootcamp } from "../api/api";
+import { useBootcampHook } from "@/store/hooks/useBootcampHook";
+import { wrapper } from "@/store";
+import { bootcampById, getRunningQueriesThunk } from "@/store/reducer/bootcamp";
 
 const BootcampDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const [bootcampDetails, setBootcampDetails] = useState();
   const [courses, setCourses] = useState();
-
+  const { fetchBootcampById, fetchCoursesById } = useBootcampHook();
   const fetchBootcampDetails = async () => {
     const resp = await fetchBootcampById(id);
-    const courseResp = await fetchCoursesByBootcamp(id);
-    setCourses(courseResp?.course);
-    setBootcampDetails(resp?.data);
+    const courseResp = await fetchCoursesById(id);
+
+    setCourses(courseResp?.data?.course);
+    setBootcampDetails(resp?.data?.data);
   };
   useEffect(() => {
-    if (id) {
-      fetchBootcampDetails();
-    }
+    if (id) fetchBootcampDetails();
   }, [id]);
+
   return (
     <div>
       {/* Navbar */}
@@ -45,7 +47,7 @@ const BootcampDetails = () => {
               {/* Courses */}
               {courses &&
                 courses?.map((course) => (
-                  <div className="card mb-3 text-capitalize">
+                  <div className="card mb-3 text-capitalize" key={course?._id}>
                     <h5 className="card-header bg-primary text-white">
                       {course?.title}
                     </h5>
@@ -62,9 +64,14 @@ const BootcampDetails = () => {
                           Skill Required: {course?.minimumSkill}
                         </li>
                         <li className="list-group-item">
-                          Scholarship Available:{" "}
-                          {course?.scholarhipsAvailable ? "Yes" : "No"}
-                          <i className="fas fa-check text-success" />{" "}
+                          Scholarship Available:
+                          <i
+                            className={`fas ${
+                              !course?.scholarhipsAvailable
+                                ? "fa-times text-danger"
+                                : "fa-check text-success"
+                            }`}
+                          />{" "}
                         </li>
                       </ul>
                     </div>
@@ -74,13 +81,19 @@ const BootcampDetails = () => {
             {/* Sidebar */}
             <div className="col-md-4">
               {/* Image */}
-              <Image
-                height={100}
-                width={100}
-                src={FILE_URL + bootcampDetails?.photo}
-                className="img-thumbnail"
-                alt="..."
-              />
+              {bootcampDetails?.photo && (
+                <Image
+                  height={100}
+                  width={100}
+                  src={FILE_URL + bootcampDetails?.photo}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/img/image_3.jpg";
+                  }}
+                  className="img-thumbnail"
+                  alt="..."
+                />
+              )}
 
               {/* Rating */}
               <h1 className="text-center my-4">
@@ -109,10 +122,12 @@ const BootcampDetails = () => {
               {/* Map */}
               <div id="map" style={{ width: "100%", height: "300px" }}>
                 {" "}
-                <GoogleMaps
-                  lng={bootcampDetails?.location?.coordinates?.[0]}
-                  lat={bootcampDetails?.location?.coordinates?.[1]}
-                />{" "}
+                {bootcampDetails?.location?.coordinates?.[0] && (
+                  <GoogleMaps
+                    lng={bootcampDetails?.location?.coordinates?.[0]}
+                    lat={bootcampDetails?.location?.coordinates?.[1]}
+                  />
+                )}{" "}
               </div>
               {/* Perks */}
 
@@ -166,3 +181,16 @@ const BootcampDetails = () => {
   );
 };
 export default BootcampDetails;
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) => async (context) => {
+//     const id = context.query?.id;
+
+//     store.dispatch(bootcampById.initiate(id));
+
+//     await Promise.all(store.dispatch(getRunningQueriesThunk()));
+
+//     return {
+//       props: {},
+//     };
+//   }
+// );

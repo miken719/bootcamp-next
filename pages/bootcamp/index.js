@@ -1,48 +1,48 @@
 import PrivateHeader from "@/component/Layout/PrivateHeader";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { fetchBootcampByRadius, fetchBootcamps } from "../api/api";
+
 import Pagination from "rc-pagination";
 import { FILE_URL } from "@/config";
+import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 
 const Bootcamps = () => {
-  const router = useRouter();
-  const { slug } = router.query;
   const [pagesize, setPagesize] = useState(3);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(100);
+  const [total, setTotal] = useState(1);
   const [browseBootcamps, setBrowseBootcamps] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [radius, setRadius] = useState({
     zipcode: "",
     distance: "",
   });
+  const {
+    fetchBootcamp,
+    bootcampIsLoading,
+    fetchBootcampByRadius,
+    bootcampIsLoadingByRadius,
+  } = useBootcampHook();
 
   useEffect(() => {
     browseBootcampsAllBootcamps();
   }, [page, pagesize]);
 
   const browseBootcampsByRadius = async () => {
-    setIsLoading(true);
     let params = {
-      zipcode: radius.zipcode ? radius.zipcode : slug?.[0],
-      distance: radius.distance ? radius.distance : slug?.[1],
+      zipcode: radius.zipcode ? radius.zipcode : "0",
+      distance: radius.distance ? radius.distance : "0",
     };
-
     const api = await fetchBootcampByRadius(params);
-
-    setBrowseBootcamps(api?.data);
-    setIsLoading(false);
+    setBrowseBootcamps(api?.data?.data);
+    setTotal(api?.data?.totalrecords);
   };
 
   const browseBootcampsAllBootcamps = async () => {
-    setIsLoading(true);
-    const api = await fetchBootcamps(page, pagesize);
-    setBrowseBootcamps(api?.result);
-    setTotal(5);
-    setIsLoading(false);
+    const params = `?limit=${pagesize}&page=${page}`;
+    const api = await fetchBootcamp(params);
+    setBrowseBootcamps(api?.data?.result);
+    setTotal(api?.data?.totalrecords);
   };
 
   const handleChange = (e, name) => {
@@ -103,18 +103,6 @@ const Bootcamps = () => {
               </div>
               <h4>Filter</h4>
               <form>
-                {/* <div class="form-group">
-								<label> Career</label>
-								<select class="custom-select mb-2">
-									<option value="any" selected>Any</option>
-									<option value="Web Development">Web Development</option>
-									<option value="Mobile Development">Mobile Development</option>
-									<option value="UI/UX">UI/UX</option>
-									<option value="Data Science">Data Science</option>
-									<option value="Business">Business</option>
-									<option value="Other">Other</option>
-								</select>
-							</div> */}
                 <div className="form-group">
                   <label> Rating</label>
                   <select className="custom-select mb-2">
@@ -156,20 +144,32 @@ const Bootcamps = () => {
             {/* Main col */}
             <div className="col-md-8">
               {/* Bootcamps */}
-              {browseBootcamps && isLoading ? (
-                <span>Loading...</span>
+              {browseBootcamps &&
+              (bootcampIsLoading || bootcampIsLoadingByRadius) ? (
+                <h3 className="text-center mt-5">
+                  {" "}
+                  <img
+                    src={"/img/loading.gif"}
+                    style={{ width: "150px" }}
+                    alt="Loading..."
+                  />
+                </h3>
               ) : browseBootcamps?.length === 0 ? (
-                <div>No records</div>
+                <h3 className="text-center ">No Records Found</h3>
               ) : (
                 browseBootcamps?.map((bootcamp) => {
                   return (
-                    <div className="card mb-3">
+                    <div className="card mb-3" key={bootcamp?._id}>
                       <div className="row no-gutters">
                         <div className="col-md-4">
                           <Image
                             height={100}
                             width={100}
                             src={FILE_URL + bootcamp?.photo}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "/img/image_3.jpg";
+                            }}
                             className="card-img"
                             alt="..."
                           />
@@ -199,92 +199,20 @@ const Bootcamps = () => {
                 })
               )}
 
-              {/* <div className="card mb-3">
-                <div className="row no-gutters">
-                  <div className="col-md-4">
-                    <img src="img/image_2.jpg" className="card-img" alt="..." />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        <a href="bootcamp.html">
-                          ModernTech Bootcamp
-                          <span className="float-right badge badge-success">
-                            7.5
-                          </span>
-                        </a>
-                      </h5>
-                      <span className="badge badge-dark mb-2">Boston, MA</span>
-                      <p className="card-text">
-                        Web Development, UI/UX, Mobile Development
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card mb-3">
-                <div className="row no-gutters">
-                  <div className="col-md-4">
-                    <img src="img/image_3.jpg" className="card-img" alt="..." />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        <a href="bootcamp.html">
-                          Codemasters
-                          <span className="float-right badge badge-success">
-                            9.2
-                          </span>
-                        </a>
-                      </h5>
-                      <span className="badge badge-dark mb-2">
-                        Burlington, VT
-                      </span>
-                      <p className="card-text">
-                        Web Development, Data Science, Marketing
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card mb-3">
-                <div className="row no-gutters">
-                  <div className="col-md-4">
-                    <img src="img/image_4.jpg" className="card-img" alt="..." />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        <a href="bootcamp.html">
-                          DevCentral Bootcamp
-                          <span className="float-right badge badge-success">
-                            6.4
-                          </span>
-                        </a>
-                      </h5>
-                      <span className="badge badge-dark mb-2">
-                        Kingston, RI
-                      </span>
-                      <p className="card-text">
-                        Web Development, UI/UX, Mobile Development, Marketing
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
               {/* Pagination */}
-
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                  <Pagination
-                    className="ant-pagination"
-                    pageSize={pagesize}
-                    current={page}
-                    total={total}
-                    onChange={paginationChange}
-                  />
-                </ul>
-              </nav>
+              {browseBootcamps?.length > 0 && (
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination justify-content-end">
+                    <Pagination
+                      className="ant-pagination "
+                      pageSize={pagesize}
+                      current={page}
+                      total={total}
+                      onChange={paginationChange}
+                    />
+                  </ul>
+                </nav>
+              )}
             </div>
           </div>
         </div>

@@ -1,11 +1,16 @@
 import { messageNotification } from "@/component/utils/functions";
 import Header from "@/component/Layout/Header";
 import { useFormik } from "formik";
-import { registerUser } from "../api/api";
+
 import { REGISTER_COMPANY_SCHEMA } from "@/component/utils/schema";
 import FormInputError from "@/component/utils/error";
+import { useAuthHook } from "@/store/hooks/useAuthHook";
+import { useRouter } from "next/router";
 
 const Register = () => {
+  const { userRegister, userRegisterIsLoading, userRegisterData } =
+    useAuthHook();
+  const router = useRouter();
   const registerFormik = useFormik({
     initialValues: {
       name: "",
@@ -13,6 +18,7 @@ const Register = () => {
       password: "",
       confirmPassword: "",
       role: "user",
+      registerFormik: false,
     },
     validationSchema: REGISTER_COMPANY_SCHEMA,
     onSubmit: async (values) => {
@@ -20,15 +26,14 @@ const Register = () => {
         username: values.name,
         email: values.email,
         password: values.password,
-
         role: values.role,
       };
-      const resp = await registerUser(body);
+      const resp = await userRegister(body);
 
-      if (resp?.success) {
-        messageNotification(resp?.message, "success");
+      if (resp?.data?.success) {
+        messageNotification("User Created Successfully", "success");
       } else {
-        messageNotification(resp?.error, "error");
+        messageNotification(resp?.error?.data?.error, "error");
       }
     },
   });
@@ -44,6 +49,12 @@ const Register = () => {
                   <h1>
                     <i className="fas fa-user-plus" /> Register
                   </h1>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => router.push("/users")}
+                  >
+                    Get Users
+                  </button>
                   <p>
                     Register to list your bootcamp or rate, review and favorite
                     bootcamps
@@ -78,7 +89,7 @@ const Register = () => {
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input
-                      type="password"
+                      type={registerFormik.values.isShow ? "text" : "password"}
                       name="password"
                       className="form-control"
                       placeholder="Enter password"
@@ -86,12 +97,23 @@ const Register = () => {
                       value={registerFormik.values.password}
                       onChange={registerFormik.handleChange}
                     />
+                    <button
+                      className="btn btn-primary"
+                      onClick={() =>
+                        registerFormik.setFieldValue(
+                          "isShow",
+                          !registerFormik.values.isShow
+                        )
+                      }
+                    >
+                      {!registerFormik.values.isShow ? "Show" : "Hide"}
+                    </button>
                     <FormInputError formik={registerFormik} name={"password"} />
                   </div>
                   <div className="form-group mb-4">
                     <label htmlFor="password2">Confirm Password</label>
                     <input
-                      type="password"
+                      type={registerFormik.values.isShow ? "text" : "password"}
                       name="confirmPassword"
                       className="form-control"
                       placeholder="Confirm password"
@@ -99,6 +121,17 @@ const Register = () => {
                       value={registerFormik.values.confirmPassword}
                       onChange={registerFormik.handleChange}
                     />
+                    <button
+                      className="btn btn-primary"
+                      onClick={() =>
+                        registerFormik.setFieldValue(
+                          "isShow",
+                          !registerFormik.values.isShow
+                        )
+                      }
+                    >
+                      {!registerFormik.values.isShow ? "Show" : "Hide"}
+                    </button>
                     <FormInputError
                       formik={registerFormik}
                       name={"confirmPassword"}
@@ -149,7 +182,7 @@ const Register = () => {
                       className="btn btn-primary btn-block"
                     >
                       {" "}
-                      Register
+                      {userRegisterIsLoading ? "Loading..." : "Register"}
                     </button>
                   </div>
                 </div>

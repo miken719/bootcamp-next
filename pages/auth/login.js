@@ -1,13 +1,16 @@
 import { messageNotification } from "@/component/utils/functions";
 import Header from "@/component/Layout/Header";
 import { useFormik } from "formik";
-import { loginUser } from "../api/api";
+//import { loginUser } from "../../api/api";
 import { LOGIN_VALIDATION_SCHEMA } from "@/component/utils/schema";
 import FormInputError from "@/component/utils/error";
 import { useRouter } from "next/router";
 
+import { useAuthHook } from "@/store/hooks/useAuthHook";
+
 const Login = () => {
   const router = useRouter();
+  const { userLogin } = useAuthHook();
   const loginFormik = useFormik({
     initialValues: { email: "", password: "", isShow: false },
     validationSchema: LOGIN_VALIDATION_SCHEMA,
@@ -16,13 +19,14 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-      const resp = await loginUser(body);
-      if (resp?.success) {
+      const resp = await userLogin(body);
+
+      if (resp?.data?.success) {
         localStorage.setItem("token", resp?.token);
         messageNotification("User Login Successfully", "success");
         router.push("/bootcamp");
       } else {
-        messageNotification(resp?.error, "error");
+        messageNotification(resp?.error?.data?.error, "error");
       }
     },
   });
@@ -67,8 +71,10 @@ const Login = () => {
                       value={loginFormik.values.password}
                       onChange={loginFormik.handleChange}
                     />
+
                     <FormInputError formik={loginFormik} name={"password"} />
                     <button
+                      className="btn btn-primary"
                       onClick={() =>
                         loginFormik.setFieldValue(
                           "isShow",
@@ -76,7 +82,7 @@ const Login = () => {
                         )
                       }
                     >
-                      Show
+                      {!loginFormik.values.isShow ? "Show" : "Hide"}
                     </button>
                   </div>
                   <div className="form-group">
