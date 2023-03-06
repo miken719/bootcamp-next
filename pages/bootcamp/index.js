@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Pagination from "rc-pagination";
 import { FILE_URL } from "@/config";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
+import { googleEvent } from "@/component/utils/googleAnalytics";
 
 const Bootcamps = () => {
   const [pagesize, setPagesize] = useState(3);
@@ -37,10 +38,21 @@ const Bootcamps = () => {
     setBrowseBootcamps(api?.data?.data);
     setTotal(api?.data?.totalrecords);
   };
-
+  const getLink = () => {
+    if (typeof window !== "undefined") {
+      return window.location.href;
+    }
+  };
+  const link = getLink();
   const browseBootcampsAllBootcamps = async () => {
     const params = `?limit=${pagesize}&page=${page}`;
     const api = await fetchBootcamp(params);
+
+    googleEvent({
+      event_category: "Browse Bootcamp By Radius",
+      event_label: link,
+    });
+
     setBrowseBootcamps(api?.data?.result);
     setTotal(api?.data?.totalrecords);
   };

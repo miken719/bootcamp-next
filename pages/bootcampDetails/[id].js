@@ -5,8 +5,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
-import { wrapper } from "@/store";
-import { bootcampById, getRunningQueriesThunk } from "@/store/reducer/bootcamp";
 
 const BootcampDetails = () => {
   const router = useRouter();

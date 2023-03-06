@@ -1,7 +1,21 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect } from "react";
+import { googleEvent } from "../utils/googleAnalytics";
 
 const Header = () => {
+  const getLink = () => {
+    if (typeof window !== "undefined") {
+      return window.location.href;
+    }
+  };
+  const link = getLink();
+  useEffect(() => {
+    googleEvent({
+      event_category: "Login",
+      event_label: link,
+    });
+  }, []);
   return (
     <>
       <Head>
