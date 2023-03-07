@@ -23,7 +23,6 @@ const Bootcamps = () => {
     bootcampIsLoading,
     fetchBootcampByRadius,
     bootcampIsLoadingByRadius,
-    bootcampDataByRadiusError,
   } = useBootcampHook();
 
   const getLink = () => {
@@ -72,7 +71,7 @@ const Bootcamps = () => {
     setPage(page);
     setPagesize(pageSize);
   };
-  console.log(bootcampDataByRadiusError, "bootcampDataByRadiusError");
+
   return (
     <div>
       {/* Navbar */}
