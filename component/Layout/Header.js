@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { googleEvent } from "../utils/googleAnalytics";
 
-const Header = ({ metaInfo }) => {
+const Header = ({ metaInfo, privateRoute }) => {
   const getLink = () => {
     if (typeof window !== "undefined") {
       return window.location.href;
@@ -83,9 +83,9 @@ const Header = ({ metaInfo }) => {
       </Head>
       <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div className="container">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" href="/">
             <i className="fas fa-laptop-code" /> DevCamper
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -96,26 +96,40 @@ const Header = ({ metaInfo }) => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" href={"/auth/login"}>
-                  <i className="fas fa-sign-in-alt" /> Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" href={"/auth/register"}>
-                  <i className="fas fa-user-plus" /> Register
-                </Link>
-              </li>
-              <li className="nav-item d-none d-sm-block">
-                <a className="nav-link" href="#">
-                  |
-                </a>
-              </li>
+              {!privateRoute && (
+                <li className="nav-item">
+                  <Link className="nav-link" href={"/auth/login"}>
+                    <i className="fas fa-sign-in-alt" /> Login
+                  </Link>
+                </li>
+              )}
+              {!privateRoute && (
+                <>
+                  {" "}
+                  <li className="nav-item">
+                    <Link className="nav-link" href={"/auth/register"}>
+                      <i className="fas fa-user-plus" /> Register
+                    </Link>
+                  </li>
+                  <li className="nav-item d-none d-sm-block">
+                    <Link className="nav-link" href="#">
+                      |
+                    </Link>
+                  </li>
+                </>
+              )}
               <li className="nav-item">
                 <Link className="nav-link" href={"/bootcamp"}>
                   Browse Bootcamps
                 </Link>
               </li>
+              {privateRoute && (
+                <li className="nav-item d-none d-sm-block">
+                  <Link className="nav-link" href="/">
+                    <i className="fas fa-sign-out-alt" /> Logout
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

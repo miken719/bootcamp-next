@@ -1,11 +1,11 @@
+import dynamic from "next/dynamic";
 import { messageNotification } from "@/component/utils/functions";
-import Header from "@/component/Layout/Header";
 import { useFormik } from "formik";
-
 import { REGISTER_COMPANY_SCHEMA } from "@/component/utils/schema";
-import FormInputError from "@/component/utils/error";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import { useRouter } from "next/router";
+const Header = dynamic(() => import("@/component/Layout/Header"));
+const FormInputError = dynamic(() => import("@/component/utils/error"));
 
 const Register = () => {
   const { userRegister, userRegisterIsLoading, userRegisterData } =

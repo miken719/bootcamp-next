@@ -1,12 +1,12 @@
-import PrivateHeader from "@/component/Layout/PrivateHeader";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import Pagination from "rc-pagination";
 import { FILE_URL } from "@/config";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
+const Header = dynamic(() => import("@/component/Layout/Header"));
 
 const Bootcamps = () => {
   const [pagesize, setPagesize] = useState(3);
@@ -73,11 +73,11 @@ const Bootcamps = () => {
   };
 
   return (
-    <div>
+    <>
       {/* Navbar */}
-      <PrivateHeader />
+      <Header privateRoute={true} />
       {/* Latest bootcamps */}
-      <section className="browse my-5">
+      <section className="browse my-5 p-4">
         <div className="container">
           <div className="row">
             {/* Sidebar */}
@@ -288,7 +288,7 @@ const Bootcamps = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 export default Bootcamps;

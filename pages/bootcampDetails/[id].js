@@ -1,11 +1,12 @@
-import GoogleMaps from "@/component/google-map/maps";
-import PrivateHeader from "@/component/Layout/PrivateHeader";
 import { FILE_URL } from "@/config";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/component/Layout/Header"));
+const GoogleMaps = dynamic(() => import("@/component/google-map/maps"));
 
 const BootcampDetails = () => {
   const router = useRouter();
@@ -32,7 +33,7 @@ const BootcampDetails = () => {
   return (
     <div>
       {/* Navbar */}
-      <PrivateHeader />
+      <Header privateRoute={true} />
       {bootcampByIdLoading ? (
         <h3 className="text-center mt-5">
           {" "}
@@ -43,7 +44,7 @@ const BootcampDetails = () => {
           />
         </h3>
       ) : (
-        <section className="bootcamp mt-5">
+        <section className="bootcamp mt-5  p-4">
           <div className="container">
             <div className="row">
               {/* Main col */}
