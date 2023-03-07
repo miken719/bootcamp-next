@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 
-const HomePage = () => {
+const HomePage = ({ cms }) => {
   const router = useRouter();
   const exploreBootcampFormik = useFormik({
     initialValues: {
@@ -20,10 +20,8 @@ const HomePage = () => {
     <section className="showcase">
       <div className="dark-overlay">
         <div className="showcase-inner container">
-          <h1 className="display-4">Find a Code Bootcamp</h1>
-          <p className="lead">
-            Find, rate and read reviews on coding bootcamps
-          </p>
+          <h1 className="display-4">{cms?.title}</h1>
+          <p className="lead">{cms?.description}</p>
 
           <div className="row">
             <div className="col-md-6">

@@ -22,7 +22,6 @@ const persistedReducer = persistReducer(persistConfig, combinedReducers);
 export const store = configureStore({
   enhancers: [],
   middleware: (getDefaultMiddleware) => {
-    //applyMiddleware(thunkMiddleware);
     return getDefaultMiddleware({
       serializableCheck: {
         ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -34,4 +33,5 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-export const wrapper = createWrapper(store, { debug: true });
+const makeStore = () => store;
+export const wrapper = createWrapper(makeStore, { debug: true });
