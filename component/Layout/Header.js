@@ -60,6 +60,8 @@ const Header = ({ metaInfo, privateRoute }) => {
               : "Bootcamp image"
           }
         />
+
+        <img name="image" src="/img/showcase.jpg" alt="seo" />
         <meta
           name="redirect"
           content={
@@ -80,7 +82,6 @@ const Header = ({ metaInfo, privateRoute }) => {
           href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
           rel="stylesheet"
         ></link>
-        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div className="container">

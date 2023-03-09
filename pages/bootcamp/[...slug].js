@@ -7,7 +7,6 @@ import { FILE_URL } from "@/config";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
 import { useRouter } from "next/router";
-import { store } from "@/store";
 const Header = dynamic(() => import("@/component/Layout/Header"));
 
 const Bootcamps = () => {
@@ -300,9 +299,3 @@ const Bootcamps = () => {
   );
 };
 export default Bootcamps;
-
-export function getServerSideProps(context) {
-  return {
-    props: { store: store.getState().bootcampApi },
-  };
-}
