@@ -61,7 +61,6 @@ const Header = ({ metaInfo, privateRoute }) => {
           }
         />
 
-        <img name="image" src="/img/showcase.jpg" alt="seo" />
         <meta
           name="redirect"
           content={
