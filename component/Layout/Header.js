@@ -119,7 +119,7 @@ const Header = ({ metaInfo, privateRoute }) => {
                 </>
               )}
               <li className="nav-item">
-                <Link className="nav-link" href={"/bootcamp"}>
+                <Link className="nav-link" href={"/bootcamp/[slug]"}>
                   Browse Bootcamps
                 </Link>
               </li>

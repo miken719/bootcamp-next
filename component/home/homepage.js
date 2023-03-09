@@ -10,7 +10,7 @@ const HomePage = ({ cms }) => {
     },
     onSubmit: (values) => {
       if (values.miles === "" || values.zipcode === "") {
-        router.push("/bootcamp");
+        router.push("/bootcamp/[slug]");
       } else {
         router.push(`/bootcamp/${values.zipcode}/${values.miles}`);
       }

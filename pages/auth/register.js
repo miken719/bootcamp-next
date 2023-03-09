@@ -49,12 +49,6 @@ const Register = () => {
                   <h1>
                     <i className="fas fa-user-plus" /> Register
                   </h1>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => router.push("/users")}
-                  >
-                    Get Users
-                  </button>
                   <p>
                     Register to list your bootcamp or rate, review and favorite
                     bootcamps

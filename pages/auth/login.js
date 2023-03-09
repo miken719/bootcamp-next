@@ -23,7 +23,7 @@ const Login = () => {
       if (resp?.data?.success) {
         localStorage?.setItem("token", resp?.token);
         messageNotification("User Login Successfully", "success");
-        router.push("/bootcamp");
+        router.push("/users");
       } else {
         messageNotification(resp?.error?.data?.error, "error");
       }

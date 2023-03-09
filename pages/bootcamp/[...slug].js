@@ -6,17 +6,20 @@ import Pagination from "rc-pagination";
 import { FILE_URL } from "@/config";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
+import { useRouter } from "next/router";
 const Header = dynamic(() => import("@/component/Layout/Header"));
 
 const Bootcamps = () => {
+  const router = useRouter();
+
   const [pagesize, setPagesize] = useState(3);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [browseBootcamps, setBrowseBootcamps] = useState([]);
   const [sort, setSort] = useState(1);
   const [radius, setRadius] = useState({
-    zipcode: "",
-    distance: "",
+    zipcode: router?.query?.slug?.[0],
+    distance: router?.query?.slug?.[1],
   });
   const {
     fetchBootcamp,
@@ -33,7 +36,11 @@ const Bootcamps = () => {
 
   const link = getLink();
   useEffect(() => {
-    browseBootcampsAllBootcamps();
+    if (radius.zipcode && radius.distance) {
+      browseBootcampsByRadius();
+    } else {
+      browseBootcampsAllBootcamps();
+    }
     googleEvent({
       event_category: "Browse Bootcamp",
       event_label: link,
