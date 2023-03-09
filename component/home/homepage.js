@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
+import Input from "../utils/input";
 
 const HomePage = ({ cms }) => {
   const router = useRouter();
@@ -26,25 +27,23 @@ const HomePage = ({ cms }) => {
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   name="miles"
                   placeholder="Miles From"
-                  value={exploreBootcampFormik.values.miles}
-                  onChange={exploreBootcampFormik.handleChange}
+                  formik={exploreBootcampFormik}
                 />
               </div>
             </div>
             <div className="col-md-6">
               <div className="form-group">
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   name="zipcode"
                   placeholder="Enter Zipcode"
-                  value={exploreBootcampFormik.values.zipcode}
-                  onChange={exploreBootcampFormik.handleChange}
+                  formik={exploreBootcampFormik}
                 />
               </div>
             </div>

@@ -4,6 +4,7 @@ import { messageNotification } from "@/component/utils/functions";
 import { useFormik } from "formik";
 import { LOGIN_VALIDATION_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
+import Input from "@/component/utils/input";
 const Header = dynamic(() => import("@/component/Layout/Header"));
 const FormInputError = dynamic(() => import("@/component/utils/error"));
 
@@ -48,30 +49,26 @@ const Login = () => {
 
                   <div className="form-group">
                     <label htmlFor="email">Email Address</label>
-                    <input
+                    <Input
                       type="email"
                       name="email"
                       className="form-control"
                       placeholder="Enter email"
                       required
-                      value={loginFormik.values.email}
-                      onChange={loginFormik.handleChange}
+                      formik={loginFormik}
                     />
-                    <FormInputError formik={loginFormik} name={"email"} />
                   </div>
                   <div className="form-group mb-4">
                     <label htmlFor="password">Password</label>
-                    <input
+                    <Input
                       type={loginFormik.values.isShow ? "text" : "password"}
                       name="password"
                       className="form-control"
                       placeholder="Enter password"
                       required
-                      value={loginFormik.values.password}
-                      onChange={loginFormik.handleChange}
+                      formik={loginFormik}
                     />
 
-                    <FormInputError formik={loginFormik} name={"password"} />
                     <button
                       className="btn btn-primary"
                       onClick={() =>

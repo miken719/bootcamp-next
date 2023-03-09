@@ -4,12 +4,12 @@ import { useFormik } from "formik";
 import { REGISTER_COMPANY_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import { useRouter } from "next/router";
+import Input from "@/component/utils/input";
 const Header = dynamic(() => import("@/component/Layout/Header"));
 const FormInputError = dynamic(() => import("@/component/utils/error"));
 
 const Register = () => {
-  const { userRegister, userRegisterIsLoading, userRegisterData } =
-    useAuthHook();
+  const { userRegister, userRegisterIsLoading } = useAuthHook();
   const router = useRouter();
   const registerFormik = useFormik({
     initialValues: {
@@ -18,7 +18,7 @@ const Register = () => {
       password: "",
       confirmPassword: "",
       role: "user",
-      registerFormik: false,
+      isShow: false,
     },
     validationSchema: REGISTER_COMPANY_SCHEMA,
     onSubmit: async (values) => {
@@ -31,6 +31,7 @@ const Register = () => {
       const resp = await userRegister(body);
 
       if (resp?.data?.success) {
+        router.push("/auth/login");
         messageNotification("User Created Successfully", "success");
       } else {
         messageNotification(resp?.error?.data?.error, "error");
@@ -56,40 +57,35 @@ const Register = () => {
 
                   <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input
+                    <Input
                       type="text"
                       name="name"
                       className="form-control"
                       placeholder="Enter full name"
-                      value={registerFormik.values.name}
-                      onChange={registerFormik.handleChange}
+                      formik={registerFormik}
                       required
                     />
-                    <FormInputError formik={registerFormik} name={"name"} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">Email Address</label>
-                    <input
+                    <Input
                       type="email"
                       name="email"
                       className="form-control"
                       placeholder="Enter email"
+                      formik={registerFormik}
                       required
-                      value={registerFormik.values.email}
-                      onChange={registerFormik.handleChange}
                     />
-                    <FormInputError formik={registerFormik} name={"email"} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input
+                    <Input
                       type={registerFormik.values.isShow ? "text" : "password"}
                       name="password"
                       className="form-control"
                       placeholder="Enter password"
+                      formik={registerFormik}
                       required
-                      value={registerFormik.values.password}
-                      onChange={registerFormik.handleChange}
                     />
                     <button
                       className="btn btn-primary"
@@ -102,18 +98,16 @@ const Register = () => {
                     >
                       {!registerFormik.values.isShow ? "Show" : "Hide"}
                     </button>
-                    <FormInputError formik={registerFormik} name={"password"} />
                   </div>
                   <div className="form-group mb-4">
                     <label htmlFor="password2">Confirm Password</label>
-                    <input
+                    <Input
                       type={registerFormik.values.isShow ? "text" : "password"}
                       name="confirmPassword"
                       className="form-control"
                       placeholder="Confirm password"
+                      formik={registerFormik}
                       required
-                      value={registerFormik.values.confirmPassword}
-                      onChange={registerFormik.handleChange}
                     />
                     <button
                       className="btn btn-primary"
@@ -126,39 +120,31 @@ const Register = () => {
                     >
                       {!registerFormik.values.isShow ? "Show" : "Hide"}
                     </button>
-                    <FormInputError
-                      formik={registerFormik}
-                      name={"confirmPassword"}
-                    />
                   </div>
                   <div className="card card-body mb-3">
                     <h5>User Role</h5>
                     <div className="form-check">
-                      <input
+                      <Input
                         className="form-check-input"
                         type="radio"
                         name="role"
-                        checked={registerFormik.values.role === "user"}
-                        onChange={() =>
-                          registerFormik.setFieldValue("role", "user")
-                        }
+                        value="user"
+                        formik={registerFormik}
                       />
-                      <FormInputError formik={registerFormik} name={"role"} />
+
                       <label className="form-check-label">
                         Regular User (Browse, Write reviews, etc)
                       </label>
                     </div>
                     <div className="form-check">
-                      <input
+                      <Input
                         className="form-check-input"
                         type="radio"
                         name="role"
-                        checked={registerFormik.values.role === "publisher"}
-                        onChange={() =>
-                          registerFormik.setFieldValue("role", "publisher")
-                        }
+                        value="publisher"
+                        formik={registerFormik}
                       />
-                      <FormInputError formik={registerFormik} name={"role"} />
+
                       <label className="form-check-label">
                         Bootcamp Publisher
                       </label>
