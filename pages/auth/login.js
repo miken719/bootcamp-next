@@ -6,7 +6,6 @@ import { LOGIN_VALIDATION_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import Input from "@/component/utils/input";
 const Header = dynamic(() => import("@/component/Layout/Header"));
-const FormInputError = dynamic(() => import("@/component/utils/error"));
 
 const Login = () => {
   const router = useRouter();
@@ -94,7 +93,7 @@ const Login = () => {
                   <p>
                     {" "}
                     Forgot Password?{" "}
-                    <a href="reset-password.html">Reset Password</a>
+                    <a href="/auth/forgetpassword">Reset Password</a>
                   </p>
                 </div>
               </div>

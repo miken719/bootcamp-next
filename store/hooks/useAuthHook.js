@@ -1,7 +1,9 @@
 import {
   useDeleteUserMutation,
+  useForgetpasswordMutation,
   useGetUsersQuery,
   useRegisterMutation,
+  useResetpasswordMutation,
   useUserLoginMutation,
 } from "../reducer/auth";
 
@@ -13,6 +15,15 @@ export const useAuthHook = () => {
     userRegister,
     { data: userRegisterData, isLoading: userRegisterIsLoading },
   ] = useRegisterMutation();
+
+  const [
+    forgetPassword,
+    { data: forgetPasswordData, isLoading: forgetPasswordIsLoading },
+  ] = useForgetpasswordMutation();
+  const [
+    resetPassword,
+    { data: resetPasswordData, isLoading: resetPasswordIsLoading },
+  ] = useResetpasswordMutation();
 
   const [userDelete, { data: userDeleteData, isLoading: userDeleteLoading }] =
     useDeleteUserMutation();
@@ -32,5 +43,11 @@ export const useAuthHook = () => {
     userDelete,
     userDeleteData,
     userDeleteLoading,
+    forgetPassword,
+    forgetPasswordData,
+    forgetPasswordIsLoading,
+    resetPassword,
+    resetPasswordData,
+    resetPasswordIsLoading,
   };
 };
