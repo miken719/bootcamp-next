@@ -255,7 +255,7 @@ const Bootcamps = () => {
                         <div className="col-md-8">
                           <div className="card-body">
                             <h5 className="card-title">
-                              <Link href={`/bootcampDetails/${bootcamp._id}`}>
+                              <Link href={`/bootcamp-details/${bootcamp._id}`}>
                                 {bootcamp?.name}
                                 <span className="float-right badge badge-success">
                                   8.8

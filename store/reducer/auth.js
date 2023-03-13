@@ -12,6 +12,12 @@ export const authApi = createApi({
         body: body,
       }),
     }),
+    getMe: builder.mutation({
+      query: () => ({
+        url: "/auth/me",
+        method: "GET",
+      }),
+    }),
     forgetpassword: builder.mutation({
       query: (body) => ({
         url: "/auth/forgetpassword",
@@ -47,6 +53,20 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["users"],
     }),
+    updateUserDetails: builder.mutation({
+      query: (body) => ({
+        url: "/auth/updatedetails",
+        method: "PUT",
+        body: body,
+      }),
+    }),
+    updatePassword: builder.mutation({
+      query: (body) => ({
+        url: "/auth/updatepassword",
+        method: "PUT",
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -57,4 +77,7 @@ export const {
   useDeleteUserMutation,
   useForgetpasswordMutation,
   useResetpasswordMutation,
+  useUpdateUserDetailsMutation,
+  useUpdatePasswordMutation,
+  useGetMeMutation,
 } = authApi;

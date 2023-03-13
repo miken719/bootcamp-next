@@ -9,7 +9,7 @@ import Header from "@/component/Layout/Header";
 const forgetPassword = () => {
   const [email, setEmail] = useState("");
   const { forgetPassword, forgetPasswordIsLoading } = useAuthHook();
-  const router = useRouter();
+
   const handleForgetPassword = async () => {
     const resp = await forgetPassword({ email });
 

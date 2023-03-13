@@ -1,9 +1,12 @@
 import {
   useDeleteUserMutation,
   useForgetpasswordMutation,
+  useGetMeMutation,
   useGetUsersQuery,
   useRegisterMutation,
   useResetpasswordMutation,
+  useUpdatePasswordMutation,
+  useUpdateUserDetailsMutation,
   useUserLoginMutation,
 } from "../reducer/auth";
 
@@ -31,6 +34,18 @@ export const useAuthHook = () => {
   const { data: getUsersData, isLoading: getUsersIsLoading } = useGetUsersQuery(
     { refetchOnMountOrArgChange: true, fixedCacheKey: "user-data-fetch" }
   );
+  const [
+    updateUserDetails,
+    { data: updateDetailsData, isLoading: updateDetailsDataIsLoading },
+  ] = useUpdateUserDetailsMutation();
+
+  const [
+    updatePassword,
+    { data: updatePasswordData, isLoading: updatePasswordIsLoading },
+  ] = useUpdatePasswordMutation();
+
+  const [getMe, { data: getMeData, isLoading: getMeIsLoading }] =
+    useGetMeMutation();
   return {
     userLogin,
     loginData,
@@ -49,5 +64,14 @@ export const useAuthHook = () => {
     resetPassword,
     resetPasswordData,
     resetPasswordIsLoading,
+    updateUserDetails,
+    updateDetailsData,
+    updateDetailsDataIsLoading,
+    updatePassword,
+    updatePasswordData,
+    updatePasswordIsLoading,
+    getMe,
+    getMeData,
+    getMeIsLoading,
   };
 };

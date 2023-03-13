@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
 import dynamic from "next/dynamic";
+import { bootcampApi } from "@/store/reducer/bootcamp";
+import { store } from "@/store";
+
 const Header = dynamic(() => import("@/component/Layout/Header"));
 const GoogleMaps = dynamic(() => import("@/component/google-map/maps"));
 
@@ -200,6 +203,24 @@ const BootcampDetails = () => {
   );
 };
 export default BootcampDetails;
+
+// export async function getServerSideProps(context) {
+//   // for a mutation you need to know the requestId
+//   const runningMutation = store.dispatch(
+//     bootcampApi.endpoints.bootcampById.initiate(context.query.id)
+//   );
+
+//   const mutationResult = bootcampApi.endpoints.bootcampById.select({
+//     requestId: runningMutation.requestId,
+//   })(store.getState());
+//   console.log(mutationResult?.data, "data");
+//   return {
+//     props: {
+//       data: [],
+//     },
+//   };
+// }
+
 // export const getServerSideProps = wrapper.getServerSideProps(
 //   (store) => async (context) => {
 //     const id = context.query?.id;
@@ -207,7 +228,7 @@ export default BootcampDetails;
 //     store.dispatch(bootcampById.initiate(id));
 
 //     await Promise.all(store.dispatch(getRunningQueriesThunk()));
-
+//     console.log(store.getState().bootcampApi, "store");
 //     return {
 //       props: {},
 //     };

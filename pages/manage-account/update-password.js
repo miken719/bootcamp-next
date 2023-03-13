@@ -3,25 +3,24 @@ import { messageNotification } from "@/component/utils/functions";
 import Input from "@/component/utils/input";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import { useFormik } from "formik";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 
-const ResetPassword = () => {
-  const { resetPassword } = useAuthHook();
-  const router = useRouter();
-  const token = router?.query?.resetpassword ?? "";
-  const resetPasswordFormik = useFormik({
+const UpdatePassword = () => {
+  const { updatePassword, updatePasswordIsLoading } = useAuthHook();
+  const updatePasswordFormik = useFormik({
     initialValues: {
+      currentPassword: "",
       newPassword: "",
       confirmPassword: "",
     },
     onSubmit: async (values) => {
       let body = {
-        password: values.confirmPassword,
+        currentPassword: values.currentPassword,
+        newPassword: values.confirmPassword,
       };
-      const resp = await resetPassword({ body: body, token: token });
+      const resp = await updatePassword(body);
 
       if (resp?.data?.success) {
+        updatePasswordFormik.resetForm();
         messageNotification("Password Reset Successfully", "success");
       } else {
         messageNotification(resp?.error?.data?.error, "error");
@@ -30,14 +29,23 @@ const ResetPassword = () => {
   });
   return (
     <>
-      <Header />
+      <Header />{" "}
       <section className="container" style={{ marginTop: "100px" }}>
         <div className="row">
           <div className="col-md-8 m-auto">
             <div className="card bg-white py-2 px-4">
               <div className="card-body">
                 <h1 className="mb-2">Update Password</h1>
-
+                <div className="form-group">
+                  <label>Current Password</label>
+                  <Input
+                    type="password"
+                    name="currentPassword"
+                    class="form-control"
+                    placeholder="Current Password"
+                    formik={updatePasswordFormik}
+                  />
+                </div>
                 <div className="form-group">
                   <label>New Password</label>
                   <Input
@@ -45,7 +53,7 @@ const ResetPassword = () => {
                     name="newPassword"
                     className="form-control"
                     placeholder="New Password"
-                    formik={resetPasswordFormik}
+                    formik={updatePasswordFormik}
                   />
                 </div>
                 <div className="form-group">
@@ -55,16 +63,16 @@ const ResetPassword = () => {
                     name="confirmPassword"
                     className="form-control"
                     placeholder="Confirm New Password"
-                    formik={resetPasswordFormik}
+                    formik={updatePasswordFormik}
                   />
                 </div>
                 <div className="form-group">
                   <button
                     type="button"
                     className="btn btn-dark btn-block"
-                    onClick={resetPasswordFormik.handleSubmit}
+                    onClick={updatePasswordFormik.handleSubmit}
                   >
-                    Update Password
+                    {updatePasswordIsLoading ? "Loading..." : "Update Password"}
                   </button>
                 </div>
               </div>
@@ -75,4 +83,4 @@ const ResetPassword = () => {
     </>
   );
 };
-export default ResetPassword;
+export default UpdatePassword;

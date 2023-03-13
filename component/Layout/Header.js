@@ -112,11 +112,6 @@ const Header = ({ metaInfo, privateRoute }) => {
                       <i className="fas fa-user-plus" /> Register
                     </Link>
                   </li>
-                  <li className="nav-item d-none d-sm-block">
-                    <Link className="nav-link" href="#">
-                      |
-                    </Link>
-                  </li>
                 </>
               )}
 
@@ -144,13 +139,16 @@ const Header = ({ metaInfo, privateRoute }) => {
                         <i className="fas fa-user" /> Account
                       </a>
                       <div className="dropdown-menu">
-                        <a className="dropdown-item" href="/manageBootcamp">
+                        <a className="dropdown-item" href="/manage-bootcamp">
                           Manage Bootcamp
                         </a>
-                        <a className="dropdown-item" href="manage-reviews.html">
+                        <a className="dropdown-item" href="#">
                           Manage Reviews
                         </a>
-                        <a className="dropdown-item" href="manage-account.html">
+                        <a
+                          className="dropdown-item"
+                          href="/manage-account/update-details"
+                        >
                           Manage Account
                         </a>
                         <div className="dropdown-divider" />
@@ -159,11 +157,7 @@ const Header = ({ metaInfo, privateRoute }) => {
                         </a>
                       </div>
                     </li>
-                    <li className="nav-item d-none d-sm-block">
-                      <a className="nav-link" href="#">
-                        |
-                      </a>
-                    </li>
+
                     <li className="nav-item">
                       <Link className="nav-link" href={"/bootcamp/[slug]"}>
                         Browse Bootcamps

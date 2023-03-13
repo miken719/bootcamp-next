@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import { messageNotification } from "@/component/utils/functions";
 import { useFormik } from "formik";
 import { LOGIN_VALIDATION_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import Input from "@/component/utils/input";
-const Header = dynamic(() => import("@/component/Layout/Header"));
+import Header from "@/component/Layout/Header";
 
 const Login = () => {
   const router = useRouter();
@@ -21,9 +20,9 @@ const Login = () => {
       const resp = await userLogin(body);
 
       if (resp?.data?.success) {
-        localStorage?.setItem("token", resp?.token);
+        localStorage?.setItem("token", resp?.data?.token);
         messageNotification("User Login Successfully", "success");
-        router.push("/users");
+        router.push("/bootcamp/[slug]");
       } else {
         messageNotification(resp?.error?.data?.error, "error");
       }

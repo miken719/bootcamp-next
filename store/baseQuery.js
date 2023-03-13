@@ -5,19 +5,14 @@ import customFetchBase from "./customFetchbase";
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
+
   // Prepare headers
-  prepareHeaders: (headers, {}) => {
+  prepareHeaders: (headers, { getState }) => {
     const token =
       typeof window !== "undefined" && localStorage?.getItem("token");
-
     if (token) {
       headers.set("Content-Type", "application/json");
-      headers.set("authorization", token);
+      headers.set("authorization", `Bearer ${token}`);
     }
     return headers;
   },

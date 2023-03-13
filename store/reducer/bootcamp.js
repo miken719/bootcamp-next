@@ -3,13 +3,14 @@ import customFetchBase from "../customFetchbase";
 export const bootcampApi = createApi({
   reducerPath: "bootcampApi",
   baseQuery: customFetchBase,
-  tagTypes: [],
+
   endpoints: (builder) => ({
     bootcamp: builder.mutation({
       query: (params) => ({
         url: "/bootcamps" + params,
         method: "GET",
       }),
+      invalidatesTags: ["bootcamp"],
     }),
     bootcampByRadius: builder.mutation({
       query: (params) => ({
@@ -39,6 +40,3 @@ export const {
   useCourseByIdMutation,
   util: { getRunningQueriesThunk },
 } = bootcampApi;
-
-// export endpoints for use in SSR
-export const { bootcampById } = bootcampApi.endpoints;
