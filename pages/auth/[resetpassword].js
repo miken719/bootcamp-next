@@ -1,9 +1,9 @@
 import Header from "@/component/Layout/Header";
 import { messageNotification } from "@/component/utils/functions";
 import Input from "@/component/utils/input";
+import { RESET_PASSWORD_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import { useFormik } from "formik";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 const ResetPassword = () => {
@@ -15,6 +15,7 @@ const ResetPassword = () => {
       newPassword: "",
       confirmPassword: "",
     },
+    validationSchema: RESET_PASSWORD_SCHEMA,
     onSubmit: async (values) => {
       let body = {
         password: values.confirmPassword,
@@ -22,6 +23,8 @@ const ResetPassword = () => {
       const resp = await resetPassword({ body: body, token: token });
 
       if (resp?.data?.success) {
+        resetPasswordFormik.resetForm();
+        router.push("/auth/login");
         messageNotification("Password Reset Successfully", "success");
       } else {
         messageNotification(resp?.error?.data?.error, "error");

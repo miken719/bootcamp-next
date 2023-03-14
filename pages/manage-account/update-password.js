@@ -1,6 +1,7 @@
 import Header from "@/component/Layout/Header";
 import { messageNotification } from "@/component/utils/functions";
 import Input from "@/component/utils/input";
+import { CONFIRM_PASSWORD_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import { useFormik } from "formik";
 
@@ -12,6 +13,7 @@ const UpdatePassword = () => {
       newPassword: "",
       confirmPassword: "",
     },
+    validationSchema: CONFIRM_PASSWORD_SCHEMA,
     onSubmit: async (values) => {
       let body = {
         currentPassword: values.currentPassword,

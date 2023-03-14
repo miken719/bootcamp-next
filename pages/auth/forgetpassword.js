@@ -1,22 +1,37 @@
-import dynamic from "next/dynamic";
-
 import { messageNotification } from "@/component/utils/functions";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
-import { useRouter } from "next/router";
+
 import { useState } from "react";
 import Header from "@/component/Layout/Header";
+import { errorMessages, INPUT_VALIDATOR } from "@/component/utils/constant";
 
-const forgetPassword = () => {
+const ForgetPassword = () => {
   const [email, setEmail] = useState("");
+  let [error, setError] = useState({});
   const { forgetPassword, forgetPasswordIsLoading } = useAuthHook();
 
+  function validateForm() {
+    let isValid = false;
+    let error = { email: "" };
+    if (!email) {
+      error.email = errorMessages.EMAIL;
+    } else if (!new RegExp(INPUT_VALIDATOR.emailRegExp).test(email)) {
+      error.email = errorMessages.EMAIL_VAL;
+    } else if (!error.email) {
+      isValid = true;
+    }
+    setError(error);
+    return isValid;
+  }
   const handleForgetPassword = async () => {
-    const resp = await forgetPassword({ email });
+    if (validateForm()) {
+      const resp = await forgetPassword({ email });
 
-    if (resp?.data?.success) {
-      messageNotification(resp.data?.message, "success");
-    } else {
-      messageNotification(resp?.error?.data?.error, "error");
+      if (resp?.data?.success) {
+        messageNotification(resp.data?.message, "success");
+      } else {
+        messageNotification(resp?.error?.data?.error, "error");
+      }
     }
   };
   return (
@@ -43,8 +58,15 @@ const forgetPassword = () => {
                       className="form-control"
                       placeholder="Email address"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        error = Object.assign(error, {
+                          email: "",
+                        });
+                        setError(error);
+                        setEmail(e.target.value);
+                      }}
                     />
+                    <span className="text-danger">{error?.email}</span>
                   </div>
                   <div className="form-group">
                     <button
@@ -66,4 +88,4 @@ const forgetPassword = () => {
     </>
   );
 };
-export default forgetPassword;
+export default ForgetPassword;

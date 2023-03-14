@@ -30,3 +30,28 @@ export const LOGIN_VALIDATION_SCHEMA = Yup.object().shape({
     .matches(INPUT_VALIDATOR.emailRegExp, errorMessages.EMAIL_VAL),
   password: Yup.string().trim().required(errorMessages.PASSWORD),
 });
+
+export const CONFIRM_PASSWORD_SCHEMA = Yup.object().shape({
+  currentPassword: Yup.string()
+    .trim()
+    .required(errorMessages.PASSWORD)
+    .matches(INPUT_VALIDATOR.passwordRegExp, errorMessages.PASSWORD_VAL),
+  newPassword: Yup.string()
+    .trim()
+    .required(errorMessages.PASSWORD)
+    .matches(INPUT_VALIDATOR.passwordRegExp, errorMessages.PASSWORD_VAL),
+  confirmPassword: Yup.string()
+    .trim()
+    .required(errorMessages.CONFIRM_PASSWORD)
+    .oneOf([Yup.ref("newPassword"), null], errorMessages.NEW_PASSWORD),
+});
+export const RESET_PASSWORD_SCHEMA = Yup.object().shape({
+  newPassword: Yup.string()
+    .trim()
+    .required(errorMessages.PASSWORD)
+    .matches(INPUT_VALIDATOR.passwordRegExp, errorMessages.PASSWORD_VAL),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("newPassword"), null],
+    errorMessages.NEW_PASSWORD
+  ),
+});
