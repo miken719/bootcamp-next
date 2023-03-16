@@ -28,8 +28,8 @@ export async function getStaticProps() {
   const data = await api.json();
 
   const homebanner = {
-    title: data?.metaInfo?.title,
-    description: data?.metaInfo?.description,
+    title: data && data?.metaInfo?.title,
+    description: data && data?.metaInfo?.description,
   };
   return {
     props: {
