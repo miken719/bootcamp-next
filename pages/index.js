@@ -3,7 +3,7 @@ import { googleEvent } from "@/component/utils/googleAnalytics";
 
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
-const HomePage = dynamic(() => import("@/component/home/homepage"));
+const HomePage = dynamic(() => import("@/component/home"));
 
 export default function Home({ cms }) {
   useEffect(() => {
@@ -23,10 +23,13 @@ export default function Home({ cms }) {
   );
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
+  const api = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cms`);
+  const data = await api.json();
+
   const homebanner = {
-    title: "Find a Code Bootcamp",
-    description: "Find, rate and read reviews on coding bootcamps",
+    title: data?.metaInfo?.title,
+    description: data?.metaInfo?.description,
   };
   return {
     props: {

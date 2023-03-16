@@ -39,13 +39,7 @@ export const authApi = createApi({
         body: body,
       }),
     }),
-    getUsers: builder.query({
-      query: () => ({
-        url: "/auth/users",
-        method: "GET",
-      }),
-      providesTags: ["users"],
-    }),
+
     deleteUser: builder.mutation({
       query: (id) => ({
         url: "/auth/users/" + id,
@@ -73,7 +67,7 @@ export const authApi = createApi({
 export const {
   useUserLoginMutation,
   useRegisterMutation,
-  useGetUsersQuery,
+
   useDeleteUserMutation,
   useForgetpasswordMutation,
   useResetpasswordMutation,

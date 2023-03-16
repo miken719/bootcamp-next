@@ -2,7 +2,6 @@ import {
   useDeleteUserMutation,
   useForgetpasswordMutation,
   useGetMeMutation,
-  useGetUsersQuery,
   useRegisterMutation,
   useResetpasswordMutation,
   useUpdatePasswordMutation,
@@ -31,9 +30,6 @@ export const useAuthHook = () => {
   const [userDelete, { data: userDeleteData, isLoading: userDeleteLoading }] =
     useDeleteUserMutation();
 
-  const { data: getUsersData, isLoading: getUsersIsLoading } = useGetUsersQuery(
-    { refetchOnMountOrArgChange: true, fixedCacheKey: "user-data-fetch" }
-  );
   const [
     updateUserDetails,
     { data: updateDetailsData, isLoading: updateDetailsDataIsLoading },
@@ -53,8 +49,6 @@ export const useAuthHook = () => {
     userRegister,
     userRegisterData,
     userRegisterIsLoading,
-    getUsersData,
-    getUsersIsLoading,
     userDelete,
     userDeleteData,
     userDeleteLoading,

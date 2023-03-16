@@ -1,9 +1,10 @@
 import Header from "@/component/Layout/Header";
 import { messageNotification } from "@/component/utils/functions";
-import { useAuthHook } from "@/store/hooks/useAuthHook";
+
+import { useUserHook } from "@/store/hooks/useUserHook";
 
 const UsersList = () => {
-  const { getUsersData, userDelete } = useAuthHook({
+  const { getUsersData, userDelete } = useUserHook({
     fixedCacheKey: "user-data-fetch",
   });
 

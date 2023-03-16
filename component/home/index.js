@@ -1,8 +1,8 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-import Input from "../utils/input";
+import Input from "../../component/utils/input";
 
-const HomePage = ({ cms }) => {
+function HomePage({ cms }) {
   const router = useRouter();
   const exploreBootcampFormik = useFormik({
     initialValues: {
@@ -58,5 +58,5 @@ const HomePage = ({ cms }) => {
       </div>
     </section>
   );
-};
+}
 export default HomePage;

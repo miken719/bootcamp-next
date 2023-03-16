@@ -1,6 +1,5 @@
 import { API_URL } from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { HYDRATE } from "next-redux-wrapper";
 import customFetchBase from "./customFetchbase";
 
 export const baseQuery = fetchBaseQuery({

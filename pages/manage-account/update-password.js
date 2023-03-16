@@ -13,7 +13,7 @@ const UpdatePassword = () => {
       newPassword: "",
       confirmPassword: "",
     },
-    validationSchema: CONFIRM_PASSWORD_SCHEMA,
+    // validationSchema: CONFIRM_PASSWORD_SCHEMA,
     onSubmit: async (values) => {
       let body = {
         currentPassword: values.currentPassword,
