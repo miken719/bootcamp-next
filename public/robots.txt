@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bootcamp-next-mikenindianic.vercel.app/sitemap.xml

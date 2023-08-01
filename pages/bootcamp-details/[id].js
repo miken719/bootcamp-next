@@ -11,7 +11,7 @@ import { store } from "@/store";
 const Header = dynamic(() => import("@/component/Layout/Header"));
 const GoogleMaps = dynamic(() => import("@/component/google-map/maps"));
 
-const BootcampDetails = () => {
+const BootcampDetails = ({ data }) => {
   const router = useRouter();
   const { id } = router.query;
   const [bootcampDetails, setBootcampDetails] = useState();
@@ -204,13 +204,13 @@ const BootcampDetails = () => {
 };
 export default BootcampDetails;
 
-// export async function getServerSideProps(context) {
-//   const [bootcamp] = bootcampApi.endpoints.bootcamp.useMutation();
-//   const response = await bootcamp(context.query.id);
-
-//   return {
-//     props: {
-//       data: [],
-//     },
-//   };
-// }
+export async function getServerSideProps(context) {
+  const [bootcamp] = bootcampApi.endpoints.bootcamp.useMutation();
+  const response = await bootcamp(context.query.id);
+  console.log(response, "response");
+  return {
+    props: {
+      data: response,
+    },
+  };
+}

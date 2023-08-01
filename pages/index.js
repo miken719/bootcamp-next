@@ -35,5 +35,6 @@ export async function getStaticProps() {
     props: {
       cms: homebanner,
     },
+    revalidate: 86400,
   };
 }
