@@ -28,55 +28,18 @@ const Header = ({ metaInfo, privateRoute }) => {
             ? metaInfo.title
             : "BootCampGo | Find a coding bootcamp"}
         </title>
-        <meta
-          name="title"
-          content={
-            metaInfo && metaInfo.yoast_wpseo_title
-              ? metaInfo.yoast_wpseo_title
-              : "Bootcamp title"
-          }
-        />
+        <meta name="title" content={"Bootcamp title"} />
         <meta
           name="description"
           content={
-            metaInfo && metaInfo.yoast_wpseo_metadesc
-              ? metaInfo.yoast_wpseo_metadesc
-              : "Bootcamp description"
+            "Become a Web Development Pro: Enroll in Our Intensive Coding Bootcamp Today!"
           }
         />
-        <meta
-          name="keywords"
-          content={
-            metaInfo && metaInfo.yoast_wpseo_metakeywords
-              ? metaInfo.yoast_wpseo_metakeywords
-              : "Bootcamp keyword"
-          }
-        />
-        <meta
-          name="image"
-          content={
-            metaInfo && metaInfo.yoast_wpseo_opengraph_image
-              ? metaInfo.yoast_wpseo_opengraph_image
-              : "Bootcamp image"
-          }
-        />
+        <meta name="keywords" content={"Bootcamp keyword"} />
+        <meta name="image" content={"Bootcamp image"} />
 
-        <meta
-          name="redirect"
-          content={
-            metaInfo && metaInfo.yoast_wpseo_redirect
-              ? metaInfo.yoast_wpseo_redirect
-              : " Bootcamp redirect"
-          }
-        />
-        <meta
-          name="robots_adv"
-          content={
-            metaInfo && metaInfo.yoast_wpseo_meta_robots_adv
-              ? metaInfo.yoast_wpseo_meta_robots_adv
-              : " Bootcamp robots adv"
-          }
-        />
+        <meta name="redirect" content={" Bootcamp redirect"} />
+        <meta name="robots_adv" content={" Bootcamp robots adv"} />
         <link
           href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
           rel="stylesheet"
