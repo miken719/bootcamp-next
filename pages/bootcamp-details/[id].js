@@ -203,14 +203,3 @@ const BootcampDetails = ({ data }) => {
   );
 };
 export default BootcampDetails;
-
-export async function getServerSideProps(context) {
-  const [bootcamp] = bootcampApi.endpoints.bootcamp.useMutation();
-  const response = await bootcamp(context.query.id);
-  console.log(response, "response");
-  return {
-    props: {
-      data: response,
-    },
-  };
-}
