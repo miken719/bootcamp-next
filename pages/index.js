@@ -23,7 +23,7 @@ export default function Home({ cms }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const api = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cms`);
   const data = await api.json();
   const homebanner = {
@@ -34,5 +34,6 @@ export async function getServerSideProps() {
     props: {
       cms: homebanner,
     },
+    revalidate: 86400,
   };
 }
