@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { googleEvent } from "../utils/googleAnalytics";
 
-const Header = ({ metaInfo, privateRoute }) => {
+const Header = ({ privateRoute = false }) => {
   const getLink = () => {
     if (typeof window !== "undefined") {
       return window.location.href;
@@ -23,31 +23,23 @@ const Header = ({ metaInfo, privateRoute }) => {
         @Author :INIC
         ******************/}
       <Head>
-        <title>
-          {metaInfo && metaInfo.title
-            ? metaInfo.title
-            : "BootCampGo | Find a coding bootcamp"}
-        </title>
-        <meta name="title" content={"Bootcamp title"} />
+        <title>{"BootCampGo | Find a coding bootcamp"}</title>
+
         <meta
           name="description"
           content={
             "Become a Web Development Pro: Enroll in Our Intensive Coding Bootcamp Today!"
           }
         />
-        <meta name="keywords" content={"Bootcamp keyword"} />
+        <meta name="keywords" content={"BootcampGo Pro"} />
         <meta name="image" content={"Bootcamp image"} />
 
         <meta name="redirect" content={" Bootcamp redirect"} />
         <meta name="robots_adv" content={" Bootcamp robots adv"} />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
-          rel="stylesheet"
-        ></link>
       </Head>
       <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div className="container">
-          <Link className="navbar-brand" href="/">
+          <Link className="navbar-brand" href={"/"}>
             <i className="fas fa-laptop-code" /> DevCamper
           </Link>
           <button

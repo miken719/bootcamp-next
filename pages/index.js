@@ -27,8 +27,8 @@ export async function getStaticProps() {
   const api = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cms`);
   const data = await api.json();
   const homebanner = {
-    title: data && data?.metaInfo?.title,
-    description: data && data?.metaInfo?.description,
+    title: data?.metaInfo?.title,
+    description: data?.metaInfo?.description,
   };
   return {
     props: {
