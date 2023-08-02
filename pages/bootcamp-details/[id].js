@@ -1,29 +1,20 @@
 import { FILE_URL } from "@/config";
 import Image from "next/image";
-import { useRouter } from "next/router";
+
 import { useEffect, useState } from "react";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
 import dynamic from "next/dynamic";
-import { bootcampApi } from "@/store/reducer/bootcamp";
-import { store } from "@/store";
 
 const Header = dynamic(() => import("@/component/Layout/Header"));
 const GoogleMaps = dynamic(() => import("@/component/google-map/maps"));
 
-const BootcampDetails = ({ data }) => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [bootcampDetails, setBootcampDetails] = useState();
+const BootcampDetails = ({ bootcampDetails, id }) => {
   const [courses, setCourses] = useState();
-  const { fetchBootcampById, fetchCoursesById, bootcampByIdLoading } =
-    useBootcampHook();
+  const { fetchCoursesById, fetchCoursesByIdIsLoading } = useBootcampHook();
   const fetchBootcampDetails = async () => {
-    const resp = await fetchBootcampById(id);
     const courseResp = await fetchCoursesById(id);
-
     setCourses(courseResp?.data?.course);
-    setBootcampDetails(resp?.data?.data);
   };
   useEffect(() => {
     if (id) fetchBootcampDetails();
@@ -37,7 +28,7 @@ const BootcampDetails = ({ data }) => {
     <div>
       {/* Navbar */}
       <Header privateRoute={true} />
-      {bootcampByIdLoading ? (
+      {fetchCoursesByIdIsLoading ? (
         <h3 className="text-center mt-5">
           {" "}
           <img
@@ -203,3 +194,30 @@ const BootcampDetails = ({ data }) => {
   );
 };
 export default BootcampDetails;
+export const getStaticPaths = async () => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const api = await fetch(`${API_URL}/bootcamps`);
+  const data = await api.json();
+  let servicesList = [];
+  data?.result?.forEach((bootcamp) => {
+    if (bootcamp?._id) {
+      return servicesList.push({ params: { id: bootcamp?._id } });
+    }
+  });
+  const paths = servicesList;
+  return { paths, fallback: true };
+};
+export const getStaticProps = async (context) => {
+  const { id } = context.params;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  const api = await fetch(`${API_URL}/bootcamps/${id}`);
+  const resp = await api.json();
+  return {
+    props: {
+      id,
+      bootcampDetails: resp?.data,
+    },
+    revalidate: 86400,
+  };
+};

@@ -10,7 +10,7 @@ function HomePage({ cms }) {
       zipcode: "",
     },
     onSubmit: (values) => {
-      if (values.miles === "" || values.zipcode === "") {
+      if (!values.miles || !values.zipcode) {
         router.push("/bootcamp/[slug]");
       } else {
         router.push(`/bootcamp/${values.zipcode}/${values.miles}`);
@@ -23,37 +23,41 @@ function HomePage({ cms }) {
         <div className="showcase-inner container">
           <h1 className="display-4">{cms?.title}</h1>
           <p className="lead">{cms?.description}</p>
-
-          <div className="row">
-            <div className="col-md-6">
-              <div className="form-group">
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="miles"
-                  placeholder="Miles From"
-                  formik={exploreBootcampFormik}
-                />
+          <form onSubmit={exploreBootcampFormik.handleSubmit}>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="form-group">
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="miles"
+                    placeholder="Miles From"
+                    formik={exploreBootcampFormik}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="form-group">
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="zipcode"
+                    placeholder="Enter Zipcode"
+                    formik={exploreBootcampFormik}
+                    required
+                  />
+                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="zipcode"
-                  placeholder="Enter Zipcode"
-                  formik={exploreBootcampFormik}
-                />
-              </div>
-            </div>
-          </div>
-          <input
-            type="submit"
-            onClick={() => exploreBootcampFormik.handleSubmit()}
-            defaultValue="Find Bootcamps"
-            className="btn btn-primary btn-block"
-          />
+            <button
+              type="submit"
+              defaultValue="Find Bootcamps"
+              className="btn btn-primary btn-block"
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </section>

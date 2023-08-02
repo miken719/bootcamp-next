@@ -16,6 +16,7 @@ const Bootcamps = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [browseBootcamps, setBrowseBootcamps] = useState([]);
+
   const [sort, setSort] = useState(1);
   const [radius, setRadius] = useState({
     zipcode: router?.query?.slug?.[0],
@@ -233,6 +234,16 @@ const Bootcamps = () => {
                     style={{ width: "550px" }}
                     alt="No Records Found..."
                   />
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block"
+                    onClick={() => {
+                      setRadius({ ...radius, distance: "", zipcode: "" });
+                      browseBootcampsAllBootcamps();
+                    }}
+                  >
+                    Find All Bootcamps
+                  </button>
                 </h3>
               ) : (
                 browseBootcamps?.map((bootcamp) => {
