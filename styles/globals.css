@@ -94,6 +94,7 @@ img {
 .rwd-table td {
   padding: 0.5em 1em;
 }
+
 @media screen and (max-width: 601px) {
   .rwd-table tr:nth-child(2) {
     border-top: none;

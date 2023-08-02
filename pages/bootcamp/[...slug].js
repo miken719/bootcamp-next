@@ -7,11 +7,13 @@ import { FILE_URL } from "@/config";
 import { useBootcampHook } from "@/store/hooks/useBootcampHook";
 import { googleEvent } from "@/component/utils/googleAnalytics";
 import { useRouter } from "next/router";
+import geoLocationHook from "@/component/google-map/geoLocationHook";
 const Header = dynamic(() => import("@/component/Layout/Header"));
 
 const Bootcamps = () => {
   const router = useRouter();
-
+  const { errorLoading, address, handleTrackLocation } = geoLocationHook();
+  console.log(address, "address");
   const [pagesize, setPagesize] = useState(3);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
@@ -22,6 +24,7 @@ const Bootcamps = () => {
     zipcode: router?.query?.slug?.[0],
     distance: router?.query?.slug?.[1],
   });
+
   const {
     fetchBootcamp,
     bootcampIsLoading,
@@ -58,6 +61,19 @@ const Bootcamps = () => {
     setTotal(api?.data?.totalrecords);
   };
 
+  const browseBootcampsByLocation = async () => {
+    handleTrackLocation();
+    if (!errorLoading && address?.postalCode) {
+      let params = {
+        zipcode: address?.postalCode,
+        distance: "10",
+      };
+      const api = await fetchBootcampByRadius(params);
+      setBrowseBootcamps(api?.data?.data);
+      setTotal(api?.data?.totalrecords);
+    }
+  };
+
   const browseBootcampsAllBootcamps = async () => {
     const params = `?limit=${pagesize}&page=${page}&sort=${sort}`;
     const api = await fetchBootcamp(params);
@@ -90,6 +106,30 @@ const Bootcamps = () => {
           <div className="row">
             {/* Sidebar */}
             <div className="col-md-4">
+              {address?.adminArea6 && (
+                <div className="card card-body mb-4">
+                  <h4 className="mb-3">You are in:</h4>
+                  <p>Area: {address?.adminArea6}</p>
+                  <p>City: {address?.adminArea4}</p>
+                  <p>State: {address?.adminArea3}</p>
+                  <p>Country: {address?.adminArea1}</p>
+                </div>
+              )}
+
+              <div className="card card-body mb-4">
+                <h4 className="mb-3">Find Nearby BootCamps</h4>
+                <form>
+                  <div className="form-group">
+                    <button
+                      type="button"
+                      onClick={browseBootcampsByLocation}
+                      className="btn btn-primary btn-block"
+                    >
+                      {errorLoading ? "Locating..." : "Locate Me"}
+                    </button>
+                  </div>
+                </form>
+              </div>
               <div className="card card-body mb-4">
                 <h4 className="mb-3">By Location</h4>
                 <form>

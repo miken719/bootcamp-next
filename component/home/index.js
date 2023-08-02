@@ -1,9 +1,19 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import Input from "../../component/utils/input";
+import geoLocationHook from "../google-map/geoLocationHook";
 
 function HomePage({ cms }) {
   const router = useRouter();
+  const { errorLoading, address, handleTrackLocation } = geoLocationHook();
+  const browseBootcampsByLocation = async () => {
+    handleTrackLocation();
+    if (!errorLoading && address?.postalCode) {
+      exploreBootcampFormik.setFieldValue("zipcode", address?.postalCode);
+      exploreBootcampFormik.setFieldValue("miles", "10");
+      exploreBootcampFormik.handleSubmit();
+    }
+  };
   const exploreBootcampFormik = useFormik({
     initialValues: {
       miles: "",
@@ -50,13 +60,23 @@ function HomePage({ cms }) {
                 </div>
               </div>
             </div>
-            <button
-              type="submit"
-              defaultValue="Find Bootcamps"
-              className="btn btn-primary btn-block"
-            >
-              Submit
-            </button>
+            <div className="btn-block-container">
+              <button
+                type="submit"
+                defaultValue="Find Bootcamps"
+                className="btn btn-primary btn-block"
+              >
+                Submit
+              </button>
+              <span>Or</span>
+              <button
+                type="button"
+                onClick={browseBootcampsByLocation}
+                className="btn btn-primary btn-block"
+              >
+                {errorLoading ? "Locating..." : "Locate Me"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
