@@ -13,7 +13,7 @@ const Header = dynamic(() => import("@/component/Layout/Header"));
 const Bootcamps = () => {
   const router = useRouter();
   const { errorLoading, address, handleTrackLocation } = geoLocationHook();
-  console.log(address, "address");
+
   const [pagesize, setPagesize] = useState(3);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
