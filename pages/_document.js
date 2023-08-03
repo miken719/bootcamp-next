@@ -7,7 +7,6 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
 
-        <meta name="robots" content="noindex,nofollow" />
         <meta httpEquiv="dns-prefetch-control" content="on" />
 
         <script
