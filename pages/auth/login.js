@@ -4,7 +4,8 @@ import { useFormik } from "formik";
 import { LOGIN_VALIDATION_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import Input from "@/component/utils/input";
-import Header from "@/component/Layout/Header";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/component/Layout/Header"));
 
 const Login = () => {
   const router = useRouter();

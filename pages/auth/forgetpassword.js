@@ -2,7 +2,8 @@ import { messageNotification } from "@/component/utils/functions";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 
 import { useState } from "react";
-import Header from "@/component/Layout/Header";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/component/Layout/Header"));
 import { errorMessages, INPUT_VALIDATOR } from "@/component/utils/constant";
 
 const ForgetPassword = () => {

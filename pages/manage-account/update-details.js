@@ -1,4 +1,5 @@
-import Header from "@/component/Layout/Header";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/component/Layout/Header"));
 import { messageNotification } from "@/component/utils/functions";
 import Input from "@/component/utils/input";
 import { useAuthHook } from "@/store/hooks/useAuthHook";

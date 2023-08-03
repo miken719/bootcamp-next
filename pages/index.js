@@ -1,9 +1,9 @@
-import Header from "@/component/Layout/Header";
 import { googleEvent } from "@/component/utils/googleAnalytics";
 
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 const HomePage = dynamic(() => import("@/component/home"));
+const Header = dynamic(() => import("@/component/Layout/Header"));
 
 export default function Home({ cms }) {
   useEffect(() => {

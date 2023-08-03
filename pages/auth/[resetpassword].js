@@ -1,11 +1,11 @@
-import Header from "@/component/Layout/Header";
 import { messageNotification } from "@/component/utils/functions";
 import Input from "@/component/utils/input";
 import { RESET_PASSWORD_SCHEMA } from "@/component/utils/schema";
 import { useAuthHook } from "@/store/hooks/useAuthHook";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/component/Layout/Header"));
 const ResetPassword = () => {
   const { resetPassword } = useAuthHook();
   const router = useRouter();
