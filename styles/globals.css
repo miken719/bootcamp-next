@@ -96,22 +96,8 @@ img {
 } /* Add your desired styles here */
 .footer {
   background-color: #f0f0f0;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
-}
-
-.footer__social-links {
-  margin-bottom: 10px;
-}
-
-.footer__social-link {
-  margin-right: 10px;
-  color: #333;
-  text-decoration: none;
-}
-
-.footer__social-link:hover {
-  color: #007bff;
 }
 
 .footer__made-by {
