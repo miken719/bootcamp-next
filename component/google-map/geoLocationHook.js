@@ -9,7 +9,7 @@ const geoLocationHook = () => {
     const longitude = position.coords.longitude;
     // Get address from latitude & longitude.
     const apiKey = process.env.NEXT_PUBLIC_MAPQUEST_KEY;
-    const url = `http://www.mapquestapi.com/geocoding/v1/reverse?key=${apiKey}&location=${latitude},${longitude}`;
+    const url = `https://www.mapquestapi.com/geocoding/v1/reverse?key=${apiKey}&location=${latitude},${longitude}`;
     setErrorLoading(true);
     fetch(url)
       .then((response) => {
