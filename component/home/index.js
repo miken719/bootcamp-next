@@ -2,17 +2,19 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import Input from "../../component/utils/input";
 import geoLocationHook from "../google-map/geoLocationHook";
+import { useEffect } from "react";
 
 function HomePage({ cms }) {
   const router = useRouter();
   const { errorLoading, address, handleTrackLocation } = geoLocationHook();
+
+  useEffect(() => {
+    if (!errorLoading && address?.postalCode) {
+      router.push(`/bootcamp/${address?.postalCode}/10`);
+    }
+  }, [address]);
   const browseBootcampsByLocation = async () => {
     handleTrackLocation();
-    if (!errorLoading && address?.postalCode) {
-      exploreBootcampFormik.setFieldValue("zipcode", address?.postalCode);
-      exploreBootcampFormik.setFieldValue("miles", "10");
-      exploreBootcampFormik.handleSubmit();
-    }
   };
   const exploreBootcampFormik = useFormik({
     initialValues: {
