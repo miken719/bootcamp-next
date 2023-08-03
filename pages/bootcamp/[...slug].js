@@ -13,7 +13,6 @@ const Header = dynamic(() => import("@/component/Layout/Header"));
 const Bootcamps = () => {
   const router = useRouter();
   const { errorLoading, address, handleTrackLocation } = geoLocationHook();
-
   const [pagesize, setPagesize] = useState(3);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
@@ -24,6 +23,13 @@ const Bootcamps = () => {
     zipcode: router?.query?.slug?.[0],
     distance: router?.query?.slug?.[1],
   });
+
+  useEffect(() => {
+    setRadius({
+      zipcode: router?.query?.slug?.[0],
+      distance: router?.query?.slug?.[1],
+    });
+  }, [router?.query?.slug]);
 
   const {
     fetchBootcamp,
@@ -49,12 +55,12 @@ const Bootcamps = () => {
       event_category: "Browse Bootcamp",
       event_label: link,
     });
-  }, [page, pagesize, sort]);
+  }, [radius.zipcode, page, pagesize, sort]);
 
   const browseBootcampsByRadius = async () => {
     let params = {
-      zipcode: radius.zipcode ? radius.zipcode : "",
-      distance: radius.distance ? radius.distance : "",
+      zipcode: radius.zipcode ?? "",
+      distance: radius.distance ?? "",
     };
     const api = await fetchBootcampByRadius(params);
     setBrowseBootcamps(api?.data?.data);
