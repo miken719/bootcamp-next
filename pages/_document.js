@@ -6,7 +6,11 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-
+        <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="/img/favicon.ico"
+        ></link>
         <meta httpEquiv="dns-prefetch-control" content="on" />
 
         <script
