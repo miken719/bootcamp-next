@@ -9,7 +9,7 @@ export default function Document() {
         <link
           rel="shortcut icon"
           type="image/x-icon"
-          href="/img/favicon.ico"
+          href="/favicon.ico"
         ></link>
         <meta httpEquiv="dns-prefetch-control" content="on" />
 
