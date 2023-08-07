@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^bootcamp-next\.vercel\.app$ [NC]
+RewriteRule ^(.*)$ https://bootcamp-navigator.vercel.app/$1 [R=301,L]
