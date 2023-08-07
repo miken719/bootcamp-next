@@ -22,3 +22,24 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
+export async function getServerSideProps(context) {
+  // Your redirection logic here
+  const oldDomain = "https://bootcamp-next.vercel.app/";
+  const newDomain = "https://bootcamp-navigator.vercel.app/";
+  const shouldRedirect = true; // Change this based on your condition
+
+  if (shouldRedirect) {
+    const newPath = context.req.url.replace(oldDomain, newDomain);
+    return {
+      redirect: {
+        destination: newPath,
+        permanent: true, // Set to true for a permanent redirection (301)
+        statusCode: 301, // Set the status code to 301
+      },
+    };
+  }
+
+  return {
+    props: {}, // Return empty props if no redirection
+  };
+}
