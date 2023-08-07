@@ -23,7 +23,7 @@ const Header = ({ privateRoute = false }) => {
         @Author :INIC
         ******************/}
       <Head>
-        <title>{"BootCampGo | Find a coding bootcamp"}</title>
+        <title>{"BootNeigh Navigator | Find a coding bootcamp"}</title>
 
         <meta
           name="description"
@@ -31,7 +31,7 @@ const Header = ({ privateRoute = false }) => {
             "Become a Web Development Pro: Enroll in Our Intensive Coding Bootcamp Today!"
           }
         />
-        <meta name="keywords" content={"BootcampGo Pro"} />
+        <meta name="keywords" content={"BootNeigh Navigator Pro"} />
         <meta name="image" content={"Bootcamp image"} />
 
         <meta name="redirect" content={" Bootcamp redirect"} />
