@@ -40,7 +40,7 @@ const Header = ({ privateRoute = false }) => {
       <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div className="container">
           <Link className="navbar-brand" href={"/"}>
-            <i className="fas fa-laptop-code" /> DevCamper
+            <i className="fas fa-laptop-code" /> BootNeigh
           </Link>
           <button
             className="navbar-toggler"

@@ -152,7 +152,7 @@ const Register = () => {
                   </div>
                   <p className="text-danger">
                     * You must be affiliated with the bootcamp in some way in
-                    order to add it to DevCamper.
+                    order to add it to BootNeigh.
                   </p>
                   <div className="form-group">
                     <button

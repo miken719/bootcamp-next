@@ -13,19 +13,6 @@ export default function Document() {
         ></link>
         <meta httpEquiv="dns-prefetch-control" content="on" />
 
-        <link rel="canonical" href="https://bootcamp-navigator.vercel.app/" />
-        <link
-          rel="canonical"
-          href="https://bootcamp-navigator.vercel.app/auth/login"
-        />
-        <link
-          rel="canonical"
-          href="https://bootcamp-navigator.vercel.app/auth/register"
-        />
-        <link
-          rel="canonical"
-          href="https://bootcamp-navigator.vercel.app/auth/forgetpassword"
-        />
         <script
           async
           defer
