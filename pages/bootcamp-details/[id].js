@@ -106,7 +106,6 @@ const BootcampDetails = ({ bootcampDetails, id }) => {
                     alt="..."
                   />
                 )}
-
                 {/* Rating */}
                 <h1 className="text-center my-4">
                   <span className="badge badge-secondary badge-success rounded-circle p-3">
@@ -131,18 +130,14 @@ const BootcampDetails = ({ bootcampDetails, id }) => {
                 >
                   <i className="fas fa-globe" /> Visit Website
                 </a>
-                {/* Map */}
-                <div id="map" style={{ width: "100%", height: "300px" }}>
-                  {" "}
-                  {bootcampDetails?.location?.coordinates?.[0] && (
-                    <GoogleMaps
-                      lng={bootcampDetails?.location?.coordinates?.[0]}
-                      lat={bootcampDetails?.location?.coordinates?.[1]}
-                    />
-                  )}{" "}
-                </div>
+                {/* Map */}{" "}
+                {bootcampDetails?.location?.coordinates?.[0] && (
+                  <GoogleMaps
+                    lng={bootcampDetails?.location?.coordinates?.[0]}
+                    lat={bootcampDetails?.location?.coordinates?.[1]}
+                  />
+                )}{" "}
                 {/* Perks */}
-
                 <ul className="list-group list-group-flush mt-4">
                   <li className="list-group-item">
                     <i

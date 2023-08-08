@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image"; // Import the Image component from Next.js
 
 const Footer = () => {
   return (
