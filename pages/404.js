@@ -28,7 +28,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     minHeight: "100vh",
-    background: "#292929",
+    background: "#5243c7",
   },
   heading: {
     fontSize: "3rem",

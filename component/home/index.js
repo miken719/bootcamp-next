@@ -62,7 +62,7 @@ function HomePage({ cms }) {
               </div>
             </div>
             <div class="btn-block-container">
-              <button type="submit" class="btn btn-primary btn-block">
+              <button type="submit" className="btn btn-primary btn-block">
                 Find Bootcamps
               </button>
               <span>Or</span>
