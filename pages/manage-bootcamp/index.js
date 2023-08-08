@@ -66,7 +66,7 @@ const ManageBootcamp = () => {
               </p>
               <p className="text-muted">
                 * You must be affiliated with the bootcamp in some way in order
-                to add it to CodeMasteryBootcamp.
+                to add it to CodeMastery.
               </p>
             </div>
           </div>
