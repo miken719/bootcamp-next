@@ -31,50 +31,45 @@ function HomePage({ cms }) {
   });
   return (
     <section className="showcase">
-      <div className="dark-overlay">
-        <div className="showcase-inner container">
-          <h1 className="display-4">{cms?.title}</h1>
-          <p className="lead">{cms?.description}</p>
-          <form onSubmit={exploreBootcampFormik.handleSubmit}>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group">
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="miles"
-                    placeholder="Miles From"
-                    formik={exploreBootcampFormik}
-                    required
-                  />
-                </div>
+      <div class="dark-overlay">
+        <div class="showcase-inner container">
+          <h1 class="display-4">Explore Bootcamps</h1>
+          <p class="lead">Find coding bootcamps near you.</p>
+          <form
+            class="explore-form"
+            onSubmit={exploreBootcampFormik.handleSubmit}
+          >
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="miles"
+                  placeholder="Distance (Miles)"
+                  formik={exploreBootcampFormik}
+                  required
+                />
               </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="zipcode"
-                    placeholder="Enter Zipcode"
-                    formik={exploreBootcampFormik}
-                    required
-                  />
-                </div>
+              <div class="col-md-6 mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="zipcode"
+                  placeholder="Enter Zipcode"
+                  formik={exploreBootcampFormik}
+                  required
+                />
               </div>
             </div>
-            <div className="btn-block-container">
-              <button
-                type="submit"
-                defaultValue="Find Bootcamps"
-                className="btn btn-primary btn-block"
-              >
-                Submit
+            <div class="btn-block-container">
+              <button type="submit" class="btn btn-primary btn-block">
+                Find Bootcamps
               </button>
               <span>Or</span>
               <button
                 type="button"
                 onClick={browseBootcampsByLocation}
-                className="btn btn-primary btn-block"
+                class="btn btn-secondary btn-block"
               >
                 {errorLoading ? "Locating..." : "Locate Me"}
               </button>
