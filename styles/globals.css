@@ -95,9 +95,12 @@ img {
   padding: 0.5em 1em;
 } /* Add your desired styles here */
 .footer {
-  background-color: #f0f0f0;
-  padding: 10px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333; /* Customize the background color */
+  color: white;
 }
 
 .footer__made-by {
@@ -114,7 +117,15 @@ img {
 .footer__made-by a:hover {
   color: #007bff;
 }
-
+.footer__social-links a {
+  color: white;
+  margin: 0 10px;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+.footer__social-links a:hover {
+  color: #00aced; /* Twitter blue color */
+}
 @media screen and (max-width: 601px) {
   .rwd-table tr:nth-child(2) {
     border-top: none;
