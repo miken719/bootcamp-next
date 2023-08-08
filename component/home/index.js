@@ -69,7 +69,7 @@ function HomePage({ cms }) {
               <button
                 type="button"
                 onClick={browseBootcampsByLocation}
-                class="btn btn-secondary btn-block"
+                class="btn btn-primary btn-block"
               >
                 {errorLoading ? "Locating..." : "Locate Me"}
               </button>
