@@ -31,7 +31,7 @@ const Header = ({ privateRoute = false }) => {
             "Become a Web Development Pro: Enroll in Our Intensive Coding Bootcamp Today!"
           }
         />
-        <meta name="keywords" content={"BootNeigh Navigator Pro"} />
+        <meta name="keywords" content="bootcamp near me" />
         <meta name="image" content={"Bootcamp image"} />
 
         <meta name="redirect" content={" Bootcamp redirect"} />

@@ -11,8 +11,45 @@ export default function Document() {
           type="image/x-icon"
           href="/favicon.ico"
         ></link>
+        <link rel="icon" href="/favicon.ico" />
         <meta httpEquiv="dns-prefetch-control" content="on" />
+        <meta name="apple-mobile-web-app-title" content="CodeMasteryBootcamp" />
+        <meta name="application-name" content="CodeMasteryBootcamp" />
+        <meta name="msapplication-TileColor" content="#00aba9" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta
+          name="description"
+          content="Transform your web development aspirations into reality with our Intensive Coding Bootcamp! 🚀 Gain hands-on experience, master the latest technologies, and build a standout portfolio through practical projects. Led by industry experts, our comprehensive curriculum covers both front-end and back-end development. Join a collaborative community, receive career support, and propel your journey to becoming a Web Development Pro. Enroll today and unlock your full potential in the world of web development!."
+        />
+        <meta
+          name="keywords"
+          content="VIT, Workshops, CodeMasteryCamp,CodeMasteryBootcamp Coding, Navigator,  Bootcamp, Summer Bootcamp, Web, App, Machine Learning, Research, Design, Development"
+        />
+        <meta
+          property="og:url"
+          content="https://bootcamp-navigator.vercel.app/"
+        />
+        <meta property="og:site_name" content="CodeMasteryBootcamp" />
+        <meta property="og:image" content="/android-chrome-512x512.png" />
+        <meta property="og:type" content="Website" />
+        <meta
+          property="og:description"
+          content="Transform your web development aspirations into reality with our Intensive Coding Bootcamp! 🚀 Gain hands-on experience, master the latest technologies, and build a standout portfolio through practical projects. Led by industry experts, our comprehensive curriculum covers both front-end and back-end development. Join a collaborative community, receive career support, and propel your journey to becoming a Web Development Pro. Enroll today and unlock your full potential in the world of web development!."
+        />
+        <meta property="og:title" content="CodeMasteryBootcamp" />
+        <meta name="author" content="Miken Prajapati" />
 
+        <meta property="twitter:card" content="CodeMasteryBootcamp" />
+        <meta
+          property="twitter:url"
+          content="https://bootcamp-navigator.vercel.app/"
+        />
+        <meta property="twitter:title" content="CodeMasteryBootcamp" />
+        <meta
+          property="twitter:description"
+          content="Transform your web development aspirations into reality with our Intensive Coding Bootcamp! 🚀 Gain hands-on experience, master the latest technologies, and build a standout portfolio through practical projects. Led by industry experts, our comprehensive curriculum covers both front-end and back-end development. Join a collaborative community, receive career support, and propel your journey to becoming a Web Development Pro. Enroll today and unlock your full potential in the world of web development!."
+        />
+        <link rel="manifest" href="/manifest.json" />
         <script
           async
           defer
