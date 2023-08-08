@@ -23,7 +23,9 @@ const Header = ({ privateRoute = false }) => {
         @Author :INIC
         ******************/}
       <Head>
-        <title>{"BootNeigh Navigator | Find a coding bootcamp"}</title>
+        <title>
+          {"CodeMasteryBootcamp Navigator | Find a coding bootcamp"}
+        </title>
 
         <meta
           name="description"
@@ -40,7 +42,7 @@ const Header = ({ privateRoute = false }) => {
       <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div className="container">
           <Link className="navbar-brand" href={"/"}>
-            <i className="fas fa-laptop-code" /> BootNeigh
+            <i className="fas fa-laptop-code" /> CodeMasteryBootcamp
           </Link>
           <button
             className="navbar-toggler"
