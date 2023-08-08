@@ -23,7 +23,7 @@ const Header = ({ privateRoute = false }) => {
         @Author :INIC
         ******************/}
       <Head>
-        <title>{"CodeMastery Navigator | Find a coding bootcamp"}</title>
+        <title>{"CodeMastery"}</title>
 
         <meta
           name="description"
