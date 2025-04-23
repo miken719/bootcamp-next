@@ -107,6 +107,12 @@ const Bootcamps = () => {
   return (
     <>
       <Head>
+      <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous"
+        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -171,7 +177,7 @@ const Bootcamps = () => {
                 </form>
               </div>
               <div className="card card-body mb-4">
-                <h4 className="mb-3">By Location</h4>
+                <h4 className="mb-3">By Locations</h4>
                 <form>
                   <div className="row">
                     <div className="col-md-6">
